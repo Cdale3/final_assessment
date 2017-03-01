@@ -3,6 +3,7 @@ require 'minitest/pride'
 require './lib/store'
 require './lib/employee'
 require './lib/mall'
+require 'pry'
 
 
 class MallTest < Minitest::Test
@@ -19,32 +20,37 @@ class MallTest < Minitest::Test
 
   def test_we_add_stores
     mall = Mall.new
+    store = Store.new("Brookstone")
     assert_instance_of Mall, mall
-    mall.open_store(mall)
+
+    mall.open_store(store)
     assert_equal 1, mall.stores.count
-    assert_equal mall, mall.stores.first
+    assert_equal [store], mall.stores
   end
 
   def test_it_adds_employees_to_stores
     mall = Mall.new
     employee_1 = Employee.new("Rachel", 92836, "$32000")
     employee_2 = Employee.new("Sid", 17638, "$30000")
-    mall.open_store(mall)
+    store = Store.new("Brookstone")
+
+    mall.open_store(store)
     mall.stores.first.hire_employee(employee_1)
     mall.stores.first.hire_employee(employee_2)
 
     assert_equal [employee_1, employee_2], mall.stores.first.employees
     assert_equal 2, mall.stores.first.employees.count
+    # binding.pry
   end
 
-    def test_it_gets_store_names
-      store_1 = Store.new("Brookstone")
-      store_2 = Store.new("Sharper Image")
-
-      mall = Mall.new
-      mall.open_store(store_1)
-      mall.open_store(store_2)
-
-      assert_equal ["Brookstone", "Sharper Image"], mall.store_names
-    end
+    # def test_it_gets_store_names
+    #   store_1 = Store.new("Brookstone")
+    #   store_2 = Store.new("Sharper Image")
+    #
+    #   mall = Mall.new
+    #   mall.open_store(store_1)
+    #   mall.open_store(store_2)
+    #
+    #   assert_equal ["Brookstone", "Sharper Image"], mall.store_names
+    # end
 end

@@ -1,5 +1,3 @@
-require './lib/'
-
 class Mall
   attr_reader :stores, :employees
   def initialize
@@ -15,7 +13,7 @@ class Mall
     employees << employee
   end
 
-  def store_names
-    store.name
-  end
+  # def store_names
+  #   store.name
+  # end
 end
